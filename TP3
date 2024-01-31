@@ -1,0 +1,40 @@
+#Matias Fernandez
+#2024-01-31
+
+import random
+
+niveau_vie = 20
+force_adversaire = 0 #force de l'adversaire
+nombre_combat = 0
+nombre_victoires = 0
+nombre_defaites = 0
+nombre_adv = 0
+nombre_vic_cons = 0 #nombre de victoire consecutive
+
+
+
+def combat(vie_adv):
+    nombre_combat += 1
+    
+    score_dé = random.randint(1,6)
+
+    print("Vouz lancez votre dé")
+    print(f"Le resultat est : {score_dé}.")
+    
+    if score_dé <= vie_adv:
+        print("Vouz avez perdue le combat.")
+        return 0
+    
+    else:
+        print("Vouz avez ganger le combat.")
+        niveau_vie += force_adversaire
+        nombre_victoires += 1
+        return 1
+    
+
+while hp > 0:
+    nombre_adv += 1
+
+    force_adversaire = random.randint(1,5)
+
+    print(f"Adversaire : {nombre_adv}\nForce de l’adversaire : {force_adversaire}\nNiveau de vie de l'usager : {niveau_vie}\nCombat numero_combat : {nombre_victoires} vs {nombre_defaites}")
