@@ -1,44 +1,58 @@
 #Matias Fernandez
 #2024-01-31
 
-import random
+import random #pour pouvoir generer la force de l'adversaire et pour faire le lancer du de
 
-niveau_vie = 20
+niveau_vie = 20 #vos vies
 force_adversaire = 0 #force de l'adversaire
-nombre_combat = 0
-nombre_victoires = 0
-nombre_defaites = 0
-nombre_adv = 0
+nombre_combat = 0 #le nombre de combat
+nombre_victoires = 0 #le nb de victoires
+nombre_defaites = 0 #le nb de defaites
+nombre_adv = 0 #le nombre de adversaire que vous avez jouer contre
 nombre_vic_cons = 0 #nombre de victoire consecutive
 
 
 
-def combat(vie_adv):
-    nombre_combat += 1
     
-    score_dé = random.randint(1,6)
 
-    print("Vouz lancez votre dé")
-    print(f"Le resultat est : {score_dé}.")
+while niveau_vie > 0: #boucle, pour quand vouz avez plus que 0 vie, la partie recommence
+    nombre_adv += 1 
+
+    force_adversaire = random.randint(1,5) #generateur aleatoire de la force de l'adversaire
+
+    print(f"Adversaire : {nombre_adv}\nForce de l'adversaire : {force_adversaire}\nNiveau de vie de l'usager : {niveau_vie}\nCombat numero_combat : {nombre_victoires} vs {nombre_defaites}") #le statut de la partie
+
+    menu = int(input("Que voulez-vous faire ? \n1- Combattre cet adversaire\n2- Contourner cet adversaire et aller ouvrir une autre porte\n3- Afficher les règles du jeu\n4- Quitter la partie")) #le menu avec les options, les choix sont 1,2,3,4
+
+    if menu == 1: #si ils ecrit 1
+        nombre_combat += 1 # +1 un nombre de comabt
+        
+        score_dé = random.randint(1,6) #generateur aleatoire du nombre du de (1 a 6)
+
+        print("Vouz lancez votre dé")
+        print(f"Le resultat est : {score_dé}.") # cela montre le resultat du nombre aleatoire du score_de
+        
+        if score_dé <= force_adversaire: # si le numero du de est egale ou moins que la force de l'adversaire, vous perdez
+            print("Vouz avez perdue le combat.")
+            niveau_vie -= force_adversaire #vouz perdez des vies (le nombre de vie que vous perdez est la force de l'adversaire)
+            nombre_defaites +=1 #ajouter +1 au nombre de defaites
+
+        
+        else: #si le numero du de est plus haut que la force de l'adversaire
+            print("Vouz avez ganger le combat.")
+            niveau_vie += force_adversaire #ajouter le nombre de la force de l'adversaire au niveau vie
+            nombre_victoires += 1 #ajouter 1 victoire au nombre de victoire
     
-    if score_dé <= vie_adv:
-        print("Vouz avez perdue le combat.")
-        return 0
-    
+    elif menu == 2:
+        niveau_vie -=1 #vouz perdez une vie
+        print("Vouz perdez 1 niveau de vie en contournant l'adversaire.")
+
+    elif menu == 3:
+        print("Pour réussir un combat, il faut que la valeur du dé lancé soit supérieure à la force de l'adversaire.  Dans ce cas, le niveau de vie de l'usager est augmenté de la force de l'adversaire.\nUne défaite a lieu lorsque la valeur du dé lancé par l'usager est inférieure ou égale à la force de l'adversaire.  Dans ce cas, le niveau de vie de l'usager est diminué de la force de l'adversaire.\nLa partie se termine lorsque les points de vie de l'usager tombent sous 0.\nL'usager peut combattre ou éviter chaque adversaire, dans le cas de l'évitement, il y a une pénalité de 1 point de vie.")
+        nombre_adv -= 1 # pour que le nombre d'adversaire reste le meme
+    elif menu == 4:
+        print("Merci et au revoir...")
+        niveau_vie = 0 #comme le niveau de vie est 0, la boucle ne vas pas continuer ,alors le code termine
     else:
-        print("Vouz avez ganger le combat.")
-        niveau_vie += force_adversaire
-        nombre_victoires += 1
-        return 1
-    
-
-while hp > 0:
-    nombre_adv += 1
-
-    force_adversaire = random.randint(1,5)
-
-    print(f"Adversaire : {nombre_adv}\nForce de l’adversaire : {force_adversaire}\nNiveau de vie de l'usager : {niveau_vie}\nCombat numero_combat : {nombre_victoires} vs {nombre_defaites}")
-
-    menu = int(input("Que voulez-vous faire ? \n1- Combattre cet adversaire\n2- Contourner cet adversaire et aller ouvrir une autre porte\n3- Afficher les règles du jeu\n4- Quitter la partie"))
-
-    if menu == 1:
+        print("Ecrivez un numero de 1 a 4.")
+        nombre_adv -=1 # pour que le nombre d'adversaire reste le meme
